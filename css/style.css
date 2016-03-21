@@ -1,0 +1,62 @@
+html,body{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	max-height:100%;
+	margin:0;
+	background:#f5f5f5
+}
+#panel{
+	width: 100%;
+	height: 50px;
+	float: left;
+}
+#panel a{
+	color:#000;
+	text-decoration:none;
+}
+#wrapper{
+	width:100%;
+	float:left;
+	margin:0;
+	text-align:center;
+	padding:0;
+}
+#game_field{
+	width: 450px;
+	height: 450px;
+	border: 1px solid #000;
+	margin: calc((100vh - 450px - 50px - 2px) / 2) calc((100vw - 450px - 2px) / 2);
+	color: #000;
+	float: left;
+}
+.przycisk{
+	float:left;
+	width:200px;
+	height:50px;
+	line-height:50px;
+	font-size:18px;
+	box-sizing:border-box;
+	text-align:center;
+	cursor:pointer;
+}
+#close{display:none}
+#new:hover{background:#4E9A06}
+#close:hover{background:#CC0000}
+#napis{
+	width:450px;
+	height:450px;
+	line-height:450px;
+	font-size:60px;
+	text-align:center;
+	cursor:pointer
+}
+.box{
+	width:148px;
+	height:148px;
+	float:left;
+	border:1px solid #000;
+	line-height: 148px !important;
+	font-size: 4em !important;
+	display: none;
+}
