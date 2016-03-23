@@ -1,157 +1,215 @@
 var ox = {
-		sprawdzone : false,
-		klikniecia : 0,
-		nacisniete : new Array(),
-		wolne      : new Array()
+		isGameEnd : false,
+		emptyFields      : new Array()
 	}
+
+var a1, a2, a3, b1, b2, b3, c1, c2, c3;
+
+function updateValues() {
+	a1 = $("#a1").attr("data-val"),
+	a2 = $("#a2").attr("data-val"),
+	a3 = $("#a3").attr("data-val"),
+	b1 = $("#b1").attr("data-val"),
+	b2 = $("#b2").attr("data-val"),
+	b3 = $("#b3").attr("data-val"),
+	c1 = $("#c1").attr("data-val"),
+	c2 = $("#c2").attr("data-val"),
+	c3 = $("#c3").attr("data-val");
+}
+
+function computerMove() {
+	updateValues();
+
+	if (a1 == "" && ((a3 == "o" && a2 == "o") || (c3 == "o" && b2 == "o") || (c1 == "o" && b1 == "o"))) {
+		set("a1", "o");
+	}else{
+		if (a2 == "" && ((a1 == "o" && a3 == "o") || (c2 == "o" && b2 == "o"))) {
+			set("a2", "o");
+		}else{
+			if (a3 == "" && ((a1 == "o" && a2 == "o") || (c1 == "o" && b2 == "o") || (c3 == "o" && b3 == "o"))) {
+				set("a3", "o");
+			}else{
+				if (c3 == "" && ((c1 == "o" && c2 == "o") || (a1 == "o" && b2 == "o") || (a3 == "o" && b3 == "o"))) {
+					set("c3", "o");
+				}else{
+					if (c1 == "" && ((c3 == "o" && c2 == "o") || (a3 == "o" && b2 == "o") || (a1 == "o" && b1 == "o"))) {
+						set("c1", "o");
+					}else{
+						if (c2 == "" && ((c3 == "o" && c1 == "o") || (a2 == "o" && b2 == "o"))) {
+							set("c2", "o");
+						}else{
+							if (b1 == "" && ((b3 == "o" && b2 == "o") || (a1 == "o" && c1 == "o"))) {
+								set("b1", "o");
+							}else{
+								if (b3 == "" && ((a3 == "o" && c3 == "o") || (b2 == "o" && b1 == "o"))) {
+									set("b3", "o");
+								}else{
+									if (a1 == "" && ((a3 == "x" && a2 == "x") || (c3 == "x" && b2 == "x") || (c1 == "x" && b1 == "x"))) {
+										set("a1", "o");
+									}else{
+										if (a2 == "" && ((a1 == "x" && a3 == "x") || (c2 == "x" && b2 == "x"))) {
+											set("a2", "o");
+										}else{
+											if (a3 == "" && ((a1 == "x" && a2 == "x") || (c1 == "x" && b2 == "x") || (c3 == "x" && b3 == "x"))) {
+												set("a3", "o");
+											}else{
+												if (c3 == "" && ((c1 == "x" && c2 == "x") || (a1 == "x" && b2 == "x") || (a3 == "x" && b3 == "x"))) {
+													set("c3", "o");
+												}else{
+													if (c1 == "" && ((c3 == "x" && c2 == "x") || (a3 == "x" && b2 == "x") || (a1 == "x" && b1 == "x"))) {
+														set("c1", "o");
+													}else{
+														if (c2 == "" && ((c3 == "x" && c1 == "x") || (a2 == "x" && b2 == "x"))) {
+															set("c2", "o");
+														}else{
+															if (b1 == "" && ((b3 == "x" && b2 == "x") || (a1 == "x" && c1 == "x"))) {
+																set("b1", "o");
+															}else{
+																if (b3 == "" && ((a3 == "x" && c3 == "x") || (b2 == "x" && b1 == "x"))) {
+																	set("b3", "o");
+																}else{
+																	if (b2 == "" && ((a3 == "x" && c1 == "x") || (c3 == "x" && a1 == "x") || (b3 == "x" && b1 == "x") || (c2 == "x" && a2 == "x"))) {
+																		set("b2", "o");
+																	}else{
+																		if (b2 == "") {
+																			set("b2", "o");
+																		}else{
+																			if (a1 == "") {
+																				set("a1", "o");
+																			}else{
+																				if (c3 == "") {
+																					set("c3", "o");
+																				}else {
+																					if (c2 == "") {
+																						set("c2", "o");
+																					}else{
+																						if (b1 == "") {
+																							set("b1", "o");
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function set(id, val) {
+	$("#"+id)
+		.attr("data-val", val)
+		.text(val)
+		.removeAttr("data-clicked");
+}
 
 function spr(){
-	var b1 = $("#1").attr("dane"),
-		b2 = $("#2").attr("dane"),
-		b3 = $("#3").attr("dane"),
-		b4 = $("#4").attr("dane"),
-		b5 = $("#5").attr("dane"),
-		b6 = $("#6").attr("dane"),
-		b7 = $("#7").attr("dane"),
-		b8 = $("#8").attr("dane"),
-		b9 = $("#9").attr("dane");
+	updateValues();
 
-	if(b1 === b2 && b1 === b3 && !ox.sprawdzone){
-		finish(b1,"1","2","3");
+	if(a1 === a2 && a1 === a3 && !ox.isGameEnd){
+		finish(a1,"a1","a2","a3");
 	}
 
-	if(b4 === b5 && b4 === b6 && !ox.sprawdzone){
-		finish(b4,"4","5","6");
+	if(b1 === b2 && b1 === b3 && !ox.isGameEnd){
+		finish(b1,"b1","b2","b3");
 	}
 
-	if(b7 === b8 && b7 === b9 && !ox.sprawdzone){
-		finish(b7,"7","8","9");
+	if(c1 === c2 && c1 === c3 && !ox.isGameEnd){
+		finish(c1,"c1","c2","c3");
 	}
 
-	if(b1 === b4 && b1 === b7 && !ox.sprawdzone){
-		finish(b1,"1","4","7");
+	if(a1 === b1 && a1 === c1 && !ox.isGameEnd){
+		finish(a1,"a1","b1","c1");
 	}
 
-	if(b2 === b5 && b2 === b8 && !ox.sprawdzone){
-		finish(b2,"2","5","8");
+	if(a2 === b2 && a2 === c2 && !ox.isGameEnd){
+		finish(a2,"a2","b2","c2");
 	}
 
-	if(b3 === b6 && b3 === b9 && !ox.sprawdzone){
-		finish(b3,"3","6","9");
+	if(a3 === b3 && a3 === c3 && !ox.isGameEnd){
+		finish(a3,"a3","b3","c3");
 	}
 
-	if(b1 === b5 && b1 === b9 && !ox.sprawdzone){
-		finish(b1,"1","5","9");
+	if(a1 === b2 && a1 === c3 && !ox.isGameEnd){
+		finish(a1,"a1","b2","c3");
 	}
 
-	if(b3 === b5 && b7 === b5 && !ox.sprawdzone){
-		finish(b3,"3","5","7");
+	if(a3 === b2 && c1 === b2 && !ox.isGameEnd){
+		finish(a3,"a3","b2","c1");
 	}
 }
 
 function finish(result, n1, n2, n3){
-	switch(result){
-		case "x":
-			$("#"+n1+", #"+n2+", #"+n3).css("color","#4E9A06");
-			$(".box").removeAttr("status");
+	if(result != ""){
+		switch(result){
+			case "x":
+				$("#"+n1+", #"+n2+", #"+n3).css("color","#4E9A06");
+			break;
+			case "o":
+				$("#"+n1+", #"+n2+", #"+n3).css("color","#CC0000");
+			break;
+			case "none":
+				$("[data-val=x]").css("color","#4E9A06");
+				$("[data-val=o]").css("color","#CC0000");
+			break;
+		}
 
-			ox.sprawdzone = true;
-		break;
-		case "o":
-			$("#"+n1+", #"+n2+", #"+n3).css("color","#CC0000");
-			$(".box").removeAttr("status");
-
-			ox.sprawdzone = true;
-		break;
-		case "none":
-			$("[dane=x]").css("color","#4E9A06");
-			$("[dane=o]").css("color","#CC0000");
-			$(".box").removeAttr("status");
-
-			ox.sprawdzone = true;
-		break;
+		ox.isGameEnd = true;
 	}
 }
 
+function start() {
+	$(".box")
+		.attr("data-clicked","noclicked")
+		.attr("data-val","")
+		.text("")
+		.css("color","#737373");
+
+	ox.isGameEnd   = false;
+	ox.emptyFields = new Array();
+}
+
 $(document).ready(function(){
-	$("#new, #napis").click(function(){
-		$("#close").click().show();
-		$("#napis").hide();
-		$(".box")
-			.hide()
-			.fadeIn()
-			.attr("status","noclicked")
-			.attr("dane","")
-			.removeClass("fa fa-circle-o")
-			.removeClass("fa fa-times")
-			.css("color","#000");
-		$("#new").text("Again");
+	start();
 
-		ox.nacisniete = [ ];
-		ox.klikniecia = 0;
-		ox.wolne      = [ ];
-
-		$(".box[dane=]").each(function(){
-			ox.wolne.push($(this).attr("id"));
-		});
-
-		var ilewtablicy = ox.wolne.length - 1,
-			losowyindex = Math.floor(Math.random()*ilewtablicy),
-			losowy      = ox.wolne[losowyindex];
-
-		$("#"+losowy).addClass("fa fa-circle-o").attr("dane","o").removeAttr("status");
-
-		ox.nacisniete.push(losowy);
-	});
-
-	$("#close").click(function(){
-		$(".box")
-			.attr("status","noclicked")
-			.attr("dane","")
-			.removeClass("fa fa-circle-o")
-			.removeClass("fa fa-times")
-			.css("color","#000");
-		$("#napis").show();
-		$("#close, .box").hide();
-		$("#new").text("New Game");
-
-		ox.klikniecia = 0;
+	$("#new").click(function(){
+		start();
 	});
 
 	$(".box").click(function(){
-		var status = $(this).attr("status"),
+		var status = $(this).attr("data-clicked"),
 			id     = $(this).attr("id");
 
-		ox.sprawdzone = false;
+		if(status === "noclicked" && !ox.isGameEnd){
+			set($(this).attr("id"), "x");
 
-		if(status === "noclicked"){
-			ox.klikniecia++;
+			ox.emptyFields = new Array();
 
-			ox.nacisniete.push(id);
-
-			$(this).addClass("fa fa-times").attr("dane","x").removeAttr("status");
-
-			ox.wolne = [ ];
-
-			$(".box[dane=]").each(function(){
-				ox.wolne.push($(this).attr("id"));
+			$(".box[data-val=]").each(function(){
+				ox.emptyFields.push($(this).attr("id"));
 			});
 
 			spr();
 
-			if(!ox.sprawdzone){
-				var ilewtablicy = ox.wolne.length,
-					losowyindex = Math.floor(Math.random() * (ilewtablicy - 1)),
-					losowy      = ox.wolne[losowyindex];
-
-				$("#"+losowy).addClass("fa fa-circle-o").attr("dane","o").removeAttr("status");
-
-				ox.nacisniete.push(losowy);
-
+			if(!ox.isGameEnd){
+				computerMove();
 				spr();
 			}
 
-			if(ox.klikniecia >= 4 && !ox.sprawdzone){
+			if(ox.emptyFields.length == 0 && !ox.isGameEnd){
 				finish("none");
 			}
 		}else{
