@@ -182,6 +182,36 @@ function start() {
 	ox.emptyFields = new Array();
 }
 
+
+function elementClick(element){
+	var status = $(element).attr("data-clicked"),
+		id     = $(element).attr("id");
+
+	if(status === "noclicked" && !ox.isGameEnd){
+		set($(element).attr("id"), "x");
+
+		ox.emptyFields = new Array();
+
+		$(".box[data-val=]").each(function(){
+			ox.emptyFields.push($(element).attr("id"));
+		});
+
+		spr();
+
+		if(!ox.isGameEnd){
+			computerMove();
+			spr();
+		}
+
+		if(ox.emptyFields.length == 0 && !ox.isGameEnd){
+			finish("none");
+		}
+	}else{
+		return false;
+	}
+}
+
+
 $(document).ready(function(){
 	start();
 
@@ -190,30 +220,8 @@ $(document).ready(function(){
 	});
 
 	$(".box").click(function(){
-		var status = $(this).attr("data-clicked"),
-			id     = $(this).attr("id");
-
-		if(status === "noclicked" && !ox.isGameEnd){
-			set($(this).attr("id"), "x");
-
-			ox.emptyFields = new Array();
-
-			$(".box[data-val=]").each(function(){
-				ox.emptyFields.push($(this).attr("id"));
-			});
-
-			spr();
-
-			if(!ox.isGameEnd){
-				computerMove();
-				spr();
-			}
-
-			if(ox.emptyFields.length == 0 && !ox.isGameEnd){
-				finish("none");
-			}
-		}else{
-			return false;
-		}
+		elementClick($(this));
+	}).on('touchstart', function(){
+		elementClick($(this));
 	});
 });
