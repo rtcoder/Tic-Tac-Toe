@@ -15,10 +15,16 @@ html,body{
 	padding:0;
 }
 #game_field{
-	width: 450px;
-	height: 450px;
-	margin: calc((100vh - 450px - 50px) / 2) calc((100vw - 450px) / 2);
-	float: left;
+	max-width: 450px;
+	max-height: 450px;
+	width: 100vw;
+	height: 100vw;
+	margin: calc((100vh - 450px - 50px) / 2) auto;
+}
+@media screen and (max-width: 450px) {
+	#game_field{
+		margin: calc((100vh - 100vw - 50px) / 2) auto;
+	}
 }
 #new{
 	margin: 5px auto 0 auto;
@@ -32,13 +38,22 @@ html,body{
 	border-bottom:2px solid #76c2cd;
 }
 .box{
-	width:146px;
-	height:146px;
+	max-width:146px;
+	max-height:146px;
+	width: calc((100vw / 3) - 4px);
+	height: calc((100vw / 3) - 4px);
 	float:left;
 	border:2px solid #76c2cd;
 	color: #737373;
 	line-height: 146px !important;
 	font-size: 4em !important;
+}
+
+@media screen and (max-width: 450px) {
+	.box{
+		line-height: calc((100vw / 3) - 4px) !important;
+		font-size: calc(100vw / 7) !important;
+	}
 }
 #a1, #a2, #a3{
 	border-top: none;
@@ -60,6 +75,12 @@ footer{
 	font-size: 15px;
 	padding: 0 5px;
 	box-sizing: border-box;
+}
+
+@media screen and (max-width: 450px) {
+	footer{
+		font-size: 13px;
+	}
 }
 footer a{
 	color: #101010
