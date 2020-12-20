@@ -1,97 +1,170 @@
-*{
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                          supported by Chrome and Opera */
+* {
+  box-sizing: border-box;
 }
 
-html,body{
-	width:100%;
-	height:100%;
-	overflow:hidden;
-	max-height:100%;
-	margin:0;
-	background:#e6e6e6;
-	font-family: sans-serif;
-}
-#wrapper{
-	width:100%;
-	float:left;
-	margin:0;
-	text-align:center;
-	padding:0;
-}
-#game_field{
-	max-width: 450px;
-	max-height: 450px;
-	width: 100vw;
-	height: 100vw;
-	margin: calc((100vh - 450px - 50px) / 2) auto;
-}
-@media screen and (max-width: 450px) {
-	#game_field{
-		margin: calc((100vh - 100vw - 50px) / 2) auto;
-	}
-}
-#new{
-	margin: 5px auto 0 auto;
-	width:100px;
-	height:50px;
-	line-height:50px;
-	font-size:18px;
-	box-sizing:border-box;
-	text-align:center;
-	cursor:pointer;
-	border-bottom:2px solid #76c2cd;
-}
-.box{
-	max-width:146px;
-	max-height:146px;
-	width: calc((100vw / 3) - 4px);
-	height: calc((100vw / 3) - 4px);
-	float:left;
-	border:2px solid #76c2cd;
-	color: #737373;
-	line-height: 146px !important;
-	font-size: 4em !important;
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  margin: 0;
+  background: #e6e6e6;
+  font-family: sans-serif;
 }
 
-@media screen and (max-width: 450px) {
-	.box{
-		line-height: calc((100vw / 3) - 4px) !important;
-		font-size: calc(100vw / 7) !important;
-	}
-}
-#a1, #a2, #a3{
-	border-top: none;
-}
-#c1, #c2, #c3{
-	border-bottom: none;
-}
-#a1, #b1, #c1{
-	border-left: none;
-}
-#a3, #b3, #c3{
-	border-right: none;
-}
-footer{
-	position: fixed;
-	width: 100%;
-	height: 30px;
-	bottom: 0;
-	font-size: 15px;
-	padding: 0 5px;
-	box-sizing: border-box;
+.container {
+  max-width: 500px;
+  padding: 0 30px;
+  margin: 100px auto;
 }
 
-@media screen and (max-width: 450px) {
-	footer{
-		font-size: 13px;
-	}
+
+#board {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  margin-bottom: 30px;
 }
-footer a{
-	color: #101010
+
+#board .cells-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#board .cell {
+  height: 33.3333333%;
+  width: 33.3333333%;
+  position: relative;
+  cursor: pointer;
+  color: #aaa;
+  font-size: calc(18px + 5vw);
+  border: 2px solid #76c2cd;
+}
+
+#board .cell-0, #board .cell-1, #board .cell-2 {
+  border-top: none;
+}
+
+#board .cell-6, #board .cell-7, #board .cell-8 {
+  border-bottom: none;
+}
+
+#board .cell-0, #board .cell-3, #board .cell-6 {
+  border-left: none;
+}
+
+#board .cell-2, #board .cell-5, #board .cell-8 {
+  border-right: none;
+}
+
+#board [class^="cell-"].x,
+#board [class^="cell-"].o {
+  cursor: default;
+}
+
+#board [class^="cell-"]:after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#board [class^="cell-"].x:after {
+  content: "X";
+}
+
+#board [class^="cell-"].o:after {
+  content: "O";
+}
+
+#board:after {
+  content: "";
+  position: absolute;
+  background-color: #c11dd4;
+  transition: 0.7s;
+}
+
+/* Horizontal Lines */
+#board[class^="h-"]:after {
+  width: 0;
+  height: 3px;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+#board.fullLine[class^="h-"]:after {
+  width: 100%;
+}
+
+#board.h-1:after {
+  top: 16.6666666665%;
+}
+
+#board.h-2:after {
+  top: 50%;
+}
+
+#board.h-3:after {
+  top: 83.33333333%;
+}
+
+/* Vertical Lines */
+#board[class^="v-"]:after {
+  width: 3px;
+  height: 0;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+#board.fullLine[class^="v-"]:after {
+  height: 100%;
+}
+
+#board.v-1:after {
+  left: 16.6666666665%;
+}
+
+#board.v-2:after {
+  left: 50%;
+}
+
+#board.v-3:after {
+  left: 83.33333333%;
+}
+
+/* Diagonal Lines */
+#board[class^="d-main"]:after {
+  width: 3px;
+  height: 0;
+  left: 0;
+  top: 0;
+  transform: rotateZ(-45deg);
+  transform-origin: 50% 0;
+  transition: height 0.7s;
+}
+
+#board.fullLine[class^="d-main"]:after {
+  height: 140%;
+}
+
+#board[class^="d-counter"]:after {
+  height: 0;
+  width: 3px;
+  right: 0;
+  top: 0;
+  transform: rotateZ(45deg);
+  transform-origin: 50% 0;
+  transition: height 0.7s;
+}
+
+#board.fullLine[class^="d-counter"]:after {
+  height: 140%;
 }

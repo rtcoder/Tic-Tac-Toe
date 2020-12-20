@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Tic Tac Toe by rtCoder</title>
-		<meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="js/jquery.js" type="text/javascript"></script>
-		<script src="js/main.js" type="text/javascript"></script>
-		<link rel="stylesheet" href="css/style.css" type="text/css">
-	</head>
-	<body>
-		<div id="wrapper">
-			<div id="new">New game</div>
-			<div id="game_field">
-				<div class="box" id="a1"></div>
-				<div class="box" id="a2"></div>
-				<div class="box" id="a3"></div>
-				<div class="box" id="b1"></div>
-				<div class="box" id="b2"></div>
-				<div class="box" id="b3"></div>
-				<div class="box" id="c1"></div>
-				<div class="box" id="c2"></div>
-				<div class="box" id="c3"></div>
-			</div>
-		</div>
-		<footer>
-			Created & Codded by <a href="http://rtcoder.netne.net">rtCoder</a>
-			<a style="float:right" href="https://github.com/rtcoder/Tic-Tac-Toe" target="_blank">Watch on GitHub</a>
-		</footer>
-	</body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe by rtCoder</title>
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+<div class="container">
+  <div id="board"></div>
+
+  <div class="field">
+    <label for="starting">Starting Player</label>
+    <select id="starting">
+      <option value="1">Human</option>
+      <option value="0">Computer</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="depth">Depth (Difficulty)</label>
+    <select id="depth">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option selected="selected" value="-1">Unlimited</option>
+    </select>
+  </div>
+
+  <button id="newGame">New Game</button>
+</div>
+
+<script type="module" src="js/script.js"></script>
+</body>
 </html>
