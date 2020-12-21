@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  user-focus: none;
+  user-select: none;
 }
 
 body {
@@ -15,15 +17,27 @@ body {
 .container {
   max-width: 500px;
   padding: 0 30px;
-  margin: 100px auto;
+  margin: auto;
 }
 
+.settings {
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 10px;
+}
 
 #board {
   width: 100%;
   padding-top: 100%;
   position: relative;
-  margin-bottom: 30px;
 }
 
 #board .cells-wrap {
@@ -37,7 +51,7 @@ body {
   flex-wrap: wrap;
 }
 
-#board .cell {
+#board [class^="cell-"] {
   height: 33.3333333%;
   width: 33.3333333%;
   position: relative;
@@ -45,6 +59,9 @@ body {
   color: #aaa;
   font-size: calc(18px + 5vw);
   border: 2px solid #76c2cd;
+}
+#board [class^="cell-"].winner {
+  color: #6bc600;
 }
 
 #board .cell-0, #board .cell-1, #board .cell-2 {
@@ -85,86 +102,26 @@ body {
   content: "O";
 }
 
-#board:after {
-  content: "";
-  position: absolute;
-  background-color: #c11dd4;
-  transition: 0.7s;
+input[type="radio"] {
+  display: none;
 }
 
-/* Horizontal Lines */
-#board[class^="h-"]:after {
-  width: 0;
-  height: 3px;
-  left: 0;
-  transform: translateY(-50%);
+input[type="radio"]:checked + svg,
+svg:hover {
+  fill: #09c;
 }
 
-#board.fullLine[class^="h-"]:after {
-  width: 100%;
+#newGame {
+  margin: 5px auto 0 auto;
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid #76c2cd;
 }
 
-#board.h-1:after {
-  top: 16.6666666665%;
-}
-
-#board.h-2:after {
-  top: 50%;
-}
-
-#board.h-3:after {
-  top: 83.33333333%;
-}
-
-/* Vertical Lines */
-#board[class^="v-"]:after {
-  width: 3px;
-  height: 0;
-  top: 0;
-  transform: translateX(-50%);
-}
-
-#board.fullLine[class^="v-"]:after {
-  height: 100%;
-}
-
-#board.v-1:after {
-  left: 16.6666666665%;
-}
-
-#board.v-2:after {
-  left: 50%;
-}
-
-#board.v-3:after {
-  left: 83.33333333%;
-}
-
-/* Diagonal Lines */
-#board[class^="d-main"]:after {
-  width: 3px;
-  height: 0;
-  left: 0;
-  top: 0;
-  transform: rotateZ(-45deg);
-  transform-origin: 50% 0;
-  transition: height 0.7s;
-}
-
-#board.fullLine[class^="d-main"]:after {
-  height: 140%;
-}
-
-#board[class^="d-counter"]:after {
-  height: 0;
-  width: 3px;
-  right: 0;
-  top: 0;
-  transform: rotateZ(45deg);
-  transform-origin: 50% 0;
-  transition: height 0.7s;
-}
-
-#board.fullLine[class^="d-counter"]:after {
-  height: 140%;
-}

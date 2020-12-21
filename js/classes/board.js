@@ -3,7 +3,62 @@ class Board {
   static O = 'o'
 
   static TOP_LEFT = 0;
-  static TOM_MIDDLE = 1;
+  static TOP_CENTER = 1;
+  static TOP_RIGHT = 2;
+  static CENTER_LEFT = 3;
+  static CENTER_CENTER = 4;
+  static CENTER_RIGHT = 5;
+  static BOTTOM_LEFT = 6;
+  static BOTTOM_CENTER = 7;
+  static BOTTOM_RIGHT = 8;
+
+  static BOARD_POSITIONS = [
+    Board.TOP_LEFT,
+    Board.TOP_CENTER,
+    Board.TOP_RIGHT,
+    Board.CENTER_LEFT,
+    Board.CENTER_CENTER,
+    Board.CENTER_RIGHT,
+    Board.BOTTOM_LEFT,
+    Board.BOTTOM_CENTER,
+    Board.BOTTOM_RIGHT
+  ]
+
+  get topLeftVal() {
+    return this.state[Board.TOP_LEFT]
+  }
+
+  get topCenterVal() {
+    return this.state[Board.TOP_CENTER]
+  }
+
+  get topRightVal() {
+    return this.state[Board.TOP_RIGHT]
+  }
+
+  get centerLeftVal() {
+    return this.state[Board.CENTER_LEFT]
+  }
+
+  get centerCenterVal() {
+    return this.state[Board.CENTER_CENTER]
+  }
+
+  get centerRightVal() {
+    return this.state[Board.CENTER_RIGHT]
+  }
+
+  get bottomLeftVal() {
+    return this.state[Board.BOTTOM_LEFT]
+  }
+
+  get bottomCenterVal() {
+    return this.state[Board.BOTTOM_CENTER]
+  }
+
+  get bottomRightVal() {
+    return this.state[Board.BOTTOM_RIGHT]
+  }
 
   constructor(state = ["", "", "", "", "", "", "", "", ""]) {
     this.state = state;
@@ -39,7 +94,7 @@ class Board {
    * @return {Boolean} boolean represent success of the operation
    */
   insert(symbol, position) {
-    if (![0, 1, 2, 3, 4, 5, 6, 7, 8].includes(position)) {
+    if (!Board.BOARD_POSITIONS.includes(position)) {
       throw new Error("Cell index does not exist!");
     }
     if (![Board.X, Board.O].includes(symbol)) {
@@ -70,34 +125,19 @@ class Board {
       return false;
     }
 
-    //Checking Horizontal Wins
-    if (this.state[0] === this.state[1] && this.state[0] === this.state[2] && this.state[0]) {
-      return {winner: this.state[0], direction: "H", row: 1};
-    }
-    if (this.state[3] === this.state[4] && this.state[3] === this.state[5] && this.state[3]) {
-      return {winner: this.state[3], direction: "H", row: 2};
-    }
-    if (this.state[6] === this.state[7] && this.state[6] === this.state[8] && this.state[6]) {
-      return {winner: this.state[6], direction: "H", row: 3};
+    const horizontal = this.checkHorizontalWins()
+    if (horizontal) {
+      return horizontal
     }
 
-    //Checking Vertical Wins
-    if (this.state[0] === this.state[3] && this.state[0] === this.state[6] && this.state[0]) {
-      return {winner: this.state[0], direction: "V", column: 1};
-    }
-    if (this.state[1] === this.state[4] && this.state[1] === this.state[7] && this.state[1]) {
-      return {winner: this.state[1], direction: "V", column: 2};
-    }
-    if (this.state[2] === this.state[5] && this.state[2] === this.state[8] && this.state[2]) {
-      return {winner: this.state[2], direction: "V", column: 3};
+    const vertical = this.checkVerticalWins()
+    if (vertical) {
+      return vertical
     }
 
-    //Checking Diagonal Wins
-    if (this.state[0] === this.state[4] && this.state[0] === this.state[8] && this.state[0]) {
-      return {winner: this.state[0], direction: "D", diagonal: "main"};
-    }
-    if (this.state[2] === this.state[4] && this.state[2] === this.state[6] && this.state[2]) {
-      return {winner: this.state[2], direction: "D", diagonal: "counter"};
+    const diagonal = this.checkDiagonalWins()
+    if (diagonal) {
+      return diagonal
     }
 
     //no winner but the board is full
@@ -106,6 +146,79 @@ class Board {
     }
 
     return false;
+  }
+
+  checkHorizontalWins() {
+    if (this.topLeftVal === this.topCenterVal
+        && this.topLeftVal === this.topRightVal
+        && this.topLeftVal) {
+      return {
+        winner: this.topLeftVal,
+        cells: [Board.TOP_LEFT, Board.TOP_CENTER, Board.TOP_RIGHT],
+      };
+    }
+    if (this.centerLeftVal === this.centerCenterVal
+        && this.centerLeftVal === this.centerRightVal
+        && this.centerLeftVal) {
+      return {
+        winner: this.centerLeftVal,
+        cells: [Board.CENTER_LEFT, Board.CENTER_CENTER, Board.CENTER_RIGHT]
+      };
+    }
+    if (this.bottomLeftVal === this.bottomCenterVal
+        && this.bottomLeftVal === this.bottomRightVal
+        && this.bottomLeftVal) {
+      return {
+        winner: this.bottomLeftVal,
+        cells: [Board.BOTTOM_LEFT, Board.BOTTOM_CENTER, Board.BOTTOM_RIGHT]
+      };
+    }
+  }
+
+  checkVerticalWins() {
+    if (this.topLeftVal === this.centerLeftVal
+        && this.topLeftVal === this.bottomLeftVal
+        && this.topLeftVal) {
+      return {
+        winner: this.topLeftVal,
+        cells: [Board.TOP_LEFT, Board.CENTER_LEFT, Board.BOTTOM_LEFT]
+      };
+    }
+    if (this.topCenterVal === this.centerCenterVal
+        && this.topCenterVal === this.bottomCenterVal
+        && this.topCenterVal) {
+      return {
+        winner: this.topCenterVal,
+        cells: [Board.TOP_CENTER, Board.CENTER_CENTER, Board.BOTTOM_CENTER]
+      };
+    }
+    if (this.topRightVal === this.centerRightVal
+        && this.topRightVal === this.bottomRightVal
+        && this.topRightVal) {
+      return {
+        winner: this.topRightVal,
+        cells: [Board.TOP_RIGHT, Board.CENTER_RIGHT, Board.BOTTOM_RIGHT]
+      };
+    }
+  }
+
+  checkDiagonalWins() {
+    if (this.topLeftVal === this.centerCenterVal
+        && this.topLeftVal === this.bottomRightVal
+        && this.topLeftVal) {
+      return {
+        winner: this.topLeftVal,
+        cells: [Board.TOP_LEFT, Board.CENTER_CENTER, Board.BOTTOM_RIGHT]
+      };
+    }
+    if (this.topRightVal === this.centerCenterVal
+        && this.topRightVal === this.bottomLeftVal
+        && this.topRightVal) {
+      return {
+        winner: this.topRightVal,
+        cells: [Board.TOP_RIGHT, Board.CENTER_CENTER, Board.BOTTOM_LEFT]
+      };
+    }
   }
 }
 

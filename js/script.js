@@ -10,15 +10,15 @@ const newGame = (depth = -1, startingPlayer = 1) => {
   boardDIV.className = '';
   boardDIV.innerHTML =
       `<div class="cells-wrap">
-            <div class="cell cell-0"></div>
-            <div class="cell cell-1"></div>
-            <div class="cell cell-2"></div>
-            <div class="cell cell-3"></div>
-            <div class="cell cell-4"></div>
-            <div class="cell cell-5"></div>
-            <div class="cell cell-6"></div>
-            <div class="cell cell-7"></div>
-            <div class="cell cell-8"></div>
+            <div class="cell-0"></div>
+            <div class="cell-1"></div>
+            <div class="cell-2"></div>
+            <div class="cell-3"></div>
+            <div class="cell-4"></div>
+            <div class="cell-5"></div>
+            <div class="cell-6"></div>
+            <div class="cell-7"></div>
+            <div class="cell-8"></div>
         </div>`;
   //Storing HTML cells in an array
   const htmlCells = [...boardDIV.querySelector('.cells-wrap').children];
@@ -30,7 +30,7 @@ const newGame = (depth = -1, startingPlayer = 1) => {
   if (!starting) {
     const centerAndCorners = [0, 2, 4, 6, 8];
     const firstChoice = centerAndCorners[Math.floor(Math.random() * centerAndCorners.length)];
-    const symbol = !maximizing ? 'x' : Board.O;
+    const symbol = !maximizing ? Board.X : Board.O;
     board.insert(symbol, firstChoice);
     addClass(htmlCells[firstChoice], symbol);
     playerTurn = 1; //Switch turns
@@ -39,13 +39,13 @@ const newGame = (depth = -1, startingPlayer = 1) => {
   board.state.forEach((cell, index) => {
     htmlCells[index].addEventListener('click', () => {
       //If cell is already occupied or the board is in a terminal state or it's not humans turn, return false
-      if (hasClass(htmlCells[index], 'x')
+      if (hasClass(htmlCells[index], Board.X)
           || hasClass(htmlCells[index], Board.O)
           || board.isTerminal()
           || !playerTurn) {
         return false;
       }
-      const symbol = maximizing ? 'x' : Board.O; //Maximizing player is always 'x'
+      const symbol = maximizing ? Board.X : Board.O; //Maximizing player is always 'x'
       //Update the Board class instance as well as the Board UI
       board.insert(symbol, index);
       addClass(htmlCells[index], symbol);
@@ -56,7 +56,7 @@ const newGame = (depth = -1, startingPlayer = 1) => {
       playerTurn = 0; //Switch turns
       //Get computer's best move and update the UI
       player.getBestMove(board, !maximizing, best => {
-        const symbol = !maximizing ? 'x' : 'o';
+        const symbol = !maximizing ? Board.X : Board.O;
         board.insert(symbol, parseInt(best));
         addClass(htmlCells[best], symbol);
         if (board.isTerminal()) {
@@ -79,8 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   newGame(depth, startingPlayer);
   //Start a new game with chosen options when new game button is clicked
   document.getElementById("newGame").addEventListener('click', () => {
-    const startingDIV = document.getElementById("starting");
-    const starting = startingDIV.options[startingDIV.selectedIndex].value;
+    const starting = document.querySelector('input[name="starting"]:checked').value;
     const depthDIV = document.getElementById("depth");
     const depth = depthDIV.options[depthDIV.selectedIndex].value;
     newGame(depth, starting);

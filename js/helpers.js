@@ -12,11 +12,10 @@ export function addClass(el, className) {
 //class to the board that will handle drawing the winning line's animation
 export function drawWinningLine(statusObject) {
   if (!statusObject) return;
-  const {winner, direction, row, column, diagonal} = statusObject;
+  const {winner, cells} = statusObject;
   if (winner === "draw") return;
-  const board = document.getElementById("board");
-  addClass(board, `${direction.toLowerCase()}-${row || column || diagonal}`);
-  setTimeout(() => {
-    addClass(board, "fullLine");
-  }, 50);
+  cells.forEach(cell => {
+    const cellDiv = document.getElementsByClassName('cell-' + cell)[0]
+    addClass(cellDiv, 'winner');
+  })
 }
