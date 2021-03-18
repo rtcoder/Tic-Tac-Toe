@@ -72,16 +72,20 @@ const newGame = (depth = -1, startingPlayer = 1) => {
   });
 }
 
+const startGame = () => {
+  const starting = document.querySelector('input[name="starting"]:checked').value;
+  const depthDIV = document.getElementById("depth");
+  const depth = depthDIV.options[depthDIV.selectedIndex].value;
+  newGame(depth, starting);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   //Start a new game when page loads with default values
   const depth = -1;
   const startingPlayer = 1;
   newGame(depth, startingPlayer);
   //Start a new game with chosen options when new game button is clicked
-  document.getElementById("newGame").addEventListener('click', () => {
-    const starting = document.querySelector('input[name="starting"]:checked').value;
-    const depthDIV = document.getElementById("depth");
-    const depth = depthDIV.options[depthDIV.selectedIndex].value;
-    newGame(depth, starting);
-  });
+  document.getElementById("newGame").addEventListener('click', startGame);
+  document.getElementById("depth").addEventListener('change', startGame);
+  document.querySelectorAll('[name="starting"]').forEach(input => input.addEventListener('change', startGame));
 });

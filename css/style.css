@@ -24,13 +24,14 @@ body {
   margin-bottom: 50px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
+  padding-top: 10px;
 }
 
 .field {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   padding: 0 10px;
 }
 
@@ -56,10 +57,12 @@ body {
   width: 33.3333333%;
   position: relative;
   cursor: pointer;
-  color: #aaa;
+  color: #757575;
   font-size: calc(18px + 5vw);
   border: 2px solid #76c2cd;
+  outline: none;
 }
+
 #board [class^="cell-"].winner {
   color: #6bc600;
 }
@@ -95,11 +98,12 @@ body {
 }
 
 #board [class^="cell-"].x:after {
-  content: "X";
+  content: "╳";
+  font-size: calc(13px + 5vw);
 }
 
 #board [class^="cell-"].o:after {
-  content: "O";
+  content: "◯";
 }
 
 input[type="radio"] {
@@ -125,3 +129,46 @@ svg:hover {
   border-bottom: 2px solid #76c2cd;
 }
 
+label svg {
+  cursor: pointer;
+}
+
+.field.starting,
+label[for=depth] {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 13px;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+label[for=depth] select {
+  margin-top: 10px;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.field.starting div {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.field.starting div label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  align-items: center;
+}
+
+@media screen and (max-width: 311px) {
+  #newGame {
+    font-size: 14px;
+  }
+
+  .field.starting,
+  label[for=depth] {
+    font-size: 12px;
+  }
+}
