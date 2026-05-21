@@ -3,17 +3,17 @@ import Player from "./classes/player.js";
 import {addClass, drawWinningLine, hasClass} from "./helpers.js";
 
 const STATUS = {
-  humanTurn: "Twoj ruch",
-  computerTurn: "AI mysli",
-  humanWon: "Wygrywasz",
-  computerWon: "AI wygrywa",
-  draw: "Remis"
+  humanTurn: "Your turn",
+  computerTurn: "AI is thinking",
+  humanWon: "You win",
+  computerWon: "AI wins",
+  draw: "Draw"
 };
 
 const getMoveLabel = index => {
-  const rows = ["gorne", "srodkowe", "dolne"];
-  const columns = ["lewe", "srodkowe", "prawe"];
-  return `${rows[Math.floor(index / 3)]} ${columns[index % 3]} pole`;
+  const rows = ["top", "middle", "bottom"];
+  const columns = ["left", "center", "right"];
+  return `${rows[Math.floor(index / 3)]} ${columns[index % 3]} cell`;
 };
 
 const newGame = (depth = -1, startingPlayer = 1) => {
@@ -26,7 +26,7 @@ const newGame = (depth = -1, startingPlayer = 1) => {
   boardDIV.innerHTML =
       `<div class="cells-wrap">
             ${board.state.map((cell, index) => (
-                `<button class="cell-${index}" type="button" aria-label="Postaw znak w polu: ${getMoveLabel(index)}"></button>`
+                `<button class="cell-${index}" type="button" aria-label="Place mark in ${getMoveLabel(index)}"></button>`
             )).join('')}
         </div>`;
   //Storing HTML cells in an array
@@ -39,7 +39,7 @@ const newGame = (depth = -1, startingPlayer = 1) => {
   const updateCellState = (index, symbol) => {
     addClass(htmlCells[index], symbol);
     htmlCells[index].disabled = true;
-    htmlCells[index].setAttribute('aria-label', `${symbol.toUpperCase()} w polu: ${getMoveLabel(index)}`);
+    htmlCells[index].setAttribute('aria-label', `${symbol.toUpperCase()} in ${getMoveLabel(index)}`);
   };
   const finishGame = status => {
     drawWinningLine(status);

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kolko i krzyzyk by rtCoder</title>
+  <title>Tic Tac Toe by rtCoder</title>
   <link rel="stylesheet" href="css/style.css" type="text/css">
 
-  <meta property="og:title" content="Kolko i krzyzyk by rtCoder">
-  <meta property="og:description" content="Kolko i krzyzyk z AI by rtCoder">
+  <meta property="og:title" content="Tic Tac Toe by rtCoder">
+  <meta property="og:description" content="Tic Tac Toe with AI by rtCoder">
   <meta property="og:image" content="http://tictactoe.cms-pixel.com/img/thumbnail.png">
   <meta property="og:url" content="http://tictactoe.cms-pixel.com/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta property="og:site_name" content="Kolko i krzyzyk by rtCoder">
-  <meta name="twitter:image:alt" content="Kolko i krzyzyk by rtCoder">
+  <meta property="og:site_name" content="Tic Tac Toe by rtCoder">
+  <meta name="twitter:image:alt" content="Tic Tac Toe by rtCoder">
 
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -28,18 +28,18 @@
     <div class="brand-lockup">
       <div class="brand-mark" aria-hidden="true">XO</div>
       <div>
-        <p class="eyebrow">Pojedynek z AI</p>
-        <h1>Kolko i krzyzyk</h1>
+        <p class="eyebrow">AI Duel</p>
+        <h1>Tic Tac Toe</h1>
       </div>
     </div>
     <div id="gameStatus" aria-live="polite"></div>
   </header>
 
-<div class="settings" aria-label="Ustawienia gry">
+<div class="settings" aria-label="Game settings">
   <div class="field starting">
-    <span>Zaczyna</span>
+    <span>Starts</span>
     <div>
-      <label for="radio-1" title="Ty">
+      <label for="radio-1" title="You">
         <input type="radio" id="radio-1" name="starting" checked value="1">
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -129,15 +129,15 @@
     </div>
   </div>
 
-  <button id="newGame" type="button">Nowa gra</button>
+  <button id="newGame" type="button">New Game</button>
 
   <div class="field depth">
-    <label for="depth">Poziom
+    <label for="depth">Difficulty
 
       <select id="depth">
-        <option selected="selected" value="2">Lekki</option>
-        <option value="4">Sredni</option>
-        <option value="-1">Mocny</option>
+        <option selected="selected" value="2">Easy</option>
+        <option value="4">Medium</option>
+        <option value="-1">Hard</option>
       </select>
     </label>
   </div>
