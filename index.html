@@ -9,8 +9,8 @@
   <meta property="og:title" content="Tic Tac Toe by rtCoder">
   <meta property="og:description" content="Tic Tac Toe with AI by rtCoder">
   <meta property="og:image" content="http://tictactoe.cms-pixel.com/img/thumbnail.png">
-  <meta property="og:url" content="http://tictactoe.cms-pixel.com/img/thumbnail.png">
-  <meta name="twitter:card" content="http://tictactoe.cms-pixel.com/img/thumbnail.png">
+  <meta property="og:url" content="http://tictactoe.cms-pixel.com/">
+  <meta name="twitter:card" content="summary_large_image">
   <meta property="og:site_name" content="Tic Tac Toe by rtCoder">
   <meta name="twitter:image:alt" content="Tic Tac Toe by rtCoder">
 
@@ -117,7 +117,7 @@
     </div>
   </div>
 
-  <div id="newGame">New Game</div>
+  <button id="newGame" type="button">New Game</button>
 
   <div class="field depth">
     <label for="depth">Difficulty
@@ -132,6 +132,7 @@
 
 </div>
 <div class="container">
+  <div id="gameStatus" aria-live="polite"></div>
   <div id="board"></div>
 </div>
 
